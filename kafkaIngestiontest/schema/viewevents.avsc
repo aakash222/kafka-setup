@@ -1,7 +1,7 @@
 {
   "type": "record",
-  "name": "ScChatroomJoinEvents",
-  "namespace": "com.sharechat.tardis.events.sc.chatroomjoinevents",
+  "name": "viewEvents",
+  "namespace": "com.app.features.events.viewevents",
   "fields": [
     {
       "name": "userId",
@@ -12,7 +12,7 @@
       "default": null
     },
     {
-      "name": "hostId",
+      "name": "authorId",
       "type": [
         "null",
         "string"
@@ -20,15 +20,7 @@
       "default": null
     },
     {
-      "name": "coHostId",
-      "type": [
-        "null",
-        "string"
-      ],
-      "default": null
-    },
-    {
-      "name": "chatroomId",
+      "name": "postId",
       "type": [
         "null",
         "string"
