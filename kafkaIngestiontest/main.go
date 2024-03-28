@@ -36,16 +36,16 @@ func (kf *Kafka) BatchPublish(messages []kafka.Message) error {
 
 func main() {
 	kafkaClient := NewKafkaClient()
-
-	TestFeatureInsert(kafkaClient, "live-chatroomjoineventsV2", "schema/sc-chatroomjoinevents.avsc")
+	kafkaTopic :=  "kafkaTopicName"
+	TestFeatureInsert(kafkaClient, kafkaTopic, "schema/viewevents.avsc")
 }
 
 func TestFeatureInsert(kafkaClient *Kafka, kafkaTopic string, schemaPath string) {
 	codec := getAvroCodecBySchemaPath(schemaPath)
 
-	chatroomIds := []string{"chatroomid1", "chatroomid2", "chatroomid3", "chatroomid4", "chatroomid5"}
+	postIds := []string{"postid1", "postid2", "postid3", "postid4", "postid5"}
 
-	for i, _ := range chatroomIds {
+	for i, _ := range postIds {
 		userid := "userid_1"
 		if i%2 == 0 {
 			userid = "userid_0"
@@ -54,9 +54,8 @@ func TestFeatureInsert(kafkaClient *Kafka, kafkaTopic string, schemaPath string)
 		fmt.Println(d)
 		row1 := map[string]interface{}{
 			"userId":     goavro.Union("string", userid),
-			"hostId":     goavro.Union("string", "hostId"),
-			"coHostId":   goavro.Union("string", "cohostId"),
-			"chatroomId": goavro.Union("string", chatroomIds[i]),
+			"authorId":   goavro.Union("string", "authorId"),
+			"postId":     goavro.Union("string", postIds[i]),
 			"time":       goavro.Union("long", time.Now().UnixMilli()),
 		}
 
